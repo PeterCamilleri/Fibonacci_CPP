@@ -1,14 +1,34 @@
 #include "FibRng.h"
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+
+// The tickle variable protects against rapid fire creation of
+// generators with the default seed.
+uint32_t FibRng::tickle = 0;
 
 // A constructor for Fibonacci Psuedo Random Number Generator.
+// seed - A seed string.
 // depth - The number of cells to use. Valid values are 2...Are_you_crazy?
 FibRng::FibRng(char *seed, int _depth)
 {
     depth = _depth;
     ring = new uint32_t[depth + 2];
     reseed(seed);
+}
+
+// A constructor for Fibonacci Psuedo Random Number Generator with default seed.
+// depth - The number of cells to use. Valid values are 2...Are_you_crazy?
+FibRng::FibRng(int _depth)
+{
+    char seed_buffer[80];
+
+    sprintf_s(seed_buffer, 80, "%d", time(NULL) + tickle);
+
+    tickle++;
+    depth = _depth;
+    ring = new uint32_t[depth + 2];
+    reseed(seed_buffer);
 }
 
 // Time to pack up and go home!

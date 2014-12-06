@@ -5,10 +5,10 @@
 
 void main(int argc, char * argv[])
 {
-    FibRng gen("test");
+    FibRng gen;
     uint32_t bins[6] = { 0, 0, 0, 0, 0, 0 };
 
-    for (int i = 0; i < 10000000; i++)
+    for (int i = 0; i < 100000000; i++)
     {
         bins[gen.dice(6)]++;
     }
@@ -20,4 +20,5 @@ void main(int argc, char * argv[])
 
     //gen.dump();
     printf("Done\n");
+
 }
