@@ -9,7 +9,8 @@ the important functional bits are now present.
 
 This code does not have an installation procedure. To use it, simply add the
 FibRng.cpp and FibRng.h files to your project by whatever means is most
-convenient.
+convenient. While C++ is awkward and a pain, it does seem to run about one
+hundred times faster than the Ruby version, so there you go.
 
 The file test_rng.cpp contains a very simple demo of the generator in action.
 
