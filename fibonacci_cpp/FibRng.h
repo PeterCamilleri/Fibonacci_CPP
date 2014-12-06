@@ -10,6 +10,9 @@ public:
     ~FibRng();
 
     uint32_t dice(uint32_t sides);
+    uint8_t  byte(void);
+    uint16_t word(void);
+    double   real(void);
 
     void reseed(char *seed);
     void spin(void);
@@ -19,6 +22,7 @@ protected:
     void erase(void);
 
     static const int CHOP = 0x1FFFFFFF;
+    static const double BASE;
     static uint32_t tickle;
 
     int depth;

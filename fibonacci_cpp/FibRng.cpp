@@ -7,6 +7,8 @@
 // generators with the default seed.
 uint32_t FibRng::tickle = 0;
 
+const double FibRng::BASE = FibRng::CHOP + 1.0;
+
 // A constructor for Fibonacci Psuedo Random Number Generator.
 // seed - A seed string.
 // depth - The number of cells to use. Valid values are 2...Are_you_crazy?
@@ -48,6 +50,24 @@ uint32_t FibRng::dice(uint32_t sides)
     } while (ring[0] >= limit);
         
     return ring[0] % sides;
+}
+
+uint8_t FibRng::byte(void)
+{
+    spin();
+    return ring[0] & 0xFF;
+}
+
+uint16_t FibRng::word(void)
+{
+    spin();
+    return ring[0] & 0xFFFF;
+}
+
+double FibRng::real(void)
+{
+    spin();
+    return ring[0] / BASE;
 }
 
 // Reseed the generator with a new value.
