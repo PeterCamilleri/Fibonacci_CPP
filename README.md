@@ -25,7 +25,7 @@ Then in an appropriate place in the code:
 Where depth is an optional integer value between 2 and are you kidding
 You can also get a "random" generator of the default depth by using:
 
-    FibRng gen(depth);
+    FibRng gen;
 
 To specify a seed string use:
 
