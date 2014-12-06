@@ -46,7 +46,7 @@ and also available
     gen.spin()            # Spin the generator once.
 
 If more than one stream of numbers is required, it is best to use multiple
-instances of FibonacciRng objects rather than rely on one.
+instances of FibRng objects rather than rely on one.
 
 ## Contributing
 
