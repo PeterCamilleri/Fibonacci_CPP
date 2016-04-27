@@ -22,6 +22,7 @@ protected:
     void erase(void);
 
     static const int CHOP = 0x1FFFFFFF;
+    static const int TOP  = 0x10000000;
     static const double BASE;
     static uint32_t tickle;
 

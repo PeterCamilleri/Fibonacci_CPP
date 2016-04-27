@@ -97,7 +97,8 @@ void FibRng::spin(void)
     // Spin the wheel!
     for (int i = 0; i < depth; i++)
     {
-        ring[i] = (ring[i+1] + (ring[i+2] >> 1)) & CHOP;
+        uint32_t ring_i_2 = ring[i + 2];
+        ring[i] = (ring[i + 1] + ((ring_i_2 >> 1) | ((ring_i_2 & 1) ? TOP : 0))) & CHOP;
     }
 }
 
