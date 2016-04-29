@@ -77,7 +77,9 @@ void FibRng::reseed(char *seed)
 
     erase();
 
-    for (int i = 0; i < 1024; i++)
+    int seed_count = 32*depth + 768;
+
+    for (int i = 0; i < seed_count; i++)
     {
         unsigned int t = seed[i % seed_len];
         unsigned int x = i % depth;
