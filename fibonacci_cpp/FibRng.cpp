@@ -15,6 +15,8 @@ const double FibRng::BASE = FibRng::CHOP + 1.0;
 FibRng::FibRng(char *seed, int _depth)
 {
     depth = _depth;
+    init = 32 * depth + 768;
+
     ring = new uint32_t[depth + 2];
     reseed(seed);
 }
@@ -29,6 +31,31 @@ FibRng::FibRng(int _depth)
 
     tickle++;
     depth = _depth;
+    init = 32 * depth + 768;
+
+    ring = new uint32_t[depth + 2];
+    reseed(seed_buffer);
+}
+
+FibRng::FibRng(int _init, char *seed, int _depth)
+{
+    depth = _depth;
+    init = _init;
+
+    ring = new uint32_t[depth + 2];
+    reseed(seed);
+}
+
+FibRng::FibRng(int _init, int _depth)
+{
+    char seed_buffer[80];
+
+    sprintf_s(seed_buffer, 80, "%d", time(NULL) + tickle);
+
+    tickle++;
+    depth = _depth;
+    init = _init;
+
     ring = new uint32_t[depth + 2];
     reseed(seed_buffer);
 }
@@ -77,9 +104,7 @@ void FibRng::reseed(char *seed)
 
     erase();
 
-    int seed_count = 32*depth + 768;
-
-    for (int i = 0; i < seed_count; i++)
+    for (int i = 0; i < init; i++)
     {
         unsigned int t = seed[i % seed_len];
         unsigned int x = i % depth;

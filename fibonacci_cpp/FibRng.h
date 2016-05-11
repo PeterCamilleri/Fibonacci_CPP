@@ -7,6 +7,9 @@ class FibRng
 public:
     FibRng(char *seed, int _depth = 8);
     FibRng(int _depth = 8);
+    FibRng(int _init, char *seed, int _depth = 8);
+    FibRng(int _init, int _depth = 8);
+
     ~FibRng();
 
     uint32_t dice(uint32_t sides);
@@ -27,6 +30,7 @@ protected:
     static uint32_t tickle;
 
     int depth;
+    int init;
     uint32_t *ring;
 };
 
