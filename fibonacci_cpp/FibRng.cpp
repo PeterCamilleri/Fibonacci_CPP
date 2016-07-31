@@ -10,54 +10,78 @@ uint32_t FibRng::tickle = 0;
 const double FibRng::BASE = FibRng::CHOP + 1.0;
 
 // A constructor for Fibonacci Psuedo Random Number Generator.
+// This takes up to three parms. Versions with fewer parms follow
+// that use sensible default values where needed.
+// Parms:
+// init - The amount of initial churning to be done.
 // seed - A seed string.
 // depth - The number of cells to use. Valid values are 2...Are_you_crazy?
-FibRng::FibRng(char *seed, int _depth)
+FibRng::FibRng(int init, char *seed, int depth) : init(init), depth(depth)
 {
-    depth = _depth;
-    init = 32 * depth + 768;
-
     ring = new uint32_t[depth + 2];
     reseed(seed);
 }
 
-// A constructor for Fibonacci Psuedo Random Number Generator with default seed.
-// depth - The number of cells to use. Valid values are 2...Are_you_crazy?
-FibRng::FibRng(int _depth)
+FibRng::FibRng(char *seed, int depth) : depth(depth)
 {
-    char seed_buffer[80];
-
-    sprintf_s(seed_buffer, 80, "%d", time(NULL) + tickle);
-
-    tickle++;
-    depth = _depth;
-    init = 32 * depth + 768;
-
-    ring = new uint32_t[depth + 2];
-    reseed(seed_buffer);
-}
-
-FibRng::FibRng(int _init, char *seed, int _depth)
-{
-    depth = _depth;
-    init = _init;
-
+    default_init();
     ring = new uint32_t[depth + 2];
     reseed(seed);
 }
 
-FibRng::FibRng(int _init, int _depth)
+FibRng::FibRng(int depth) : depth(depth)
+{
+    ring = new uint32_t[depth + 2];
+    default_seed();
+}
+
+FibRng::FibRng(int init, int depth) : init(init), depth(depth)
+{
+    ring = new uint32_t[depth + 2];
+    default_seed();
+}
+
+void FibRng::default_init(void)
+{
+    init = 32 * depth + 768;
+}
+
+void FibRng::default_seed(void)
 {
     char seed_buffer[80];
-
     sprintf_s(seed_buffer, 80, "%d", time(NULL) + tickle);
-
     tickle++;
-    depth = _depth;
-    init = _init;
+    do_seed(seed_buffer);
+}
 
-    ring = new uint32_t[depth + 2];
-    reseed(seed_buffer);
+void FibRng::reseed(char *seed)
+{
+    int len = strlen(seed) + strlen(spice) + 1;
+    char *buffer = new char[len];
+
+    strcpy_s(buffer, len, seed);
+    strcat_s(buffer, len, spice);
+
+    do_seed(buffer);
+
+    delete[] buffer;
+}
+
+// Reseed the generator with a new value.
+void FibRng::do_seed(char *seed)
+{
+    int seed_len = strlen(seed);
+
+    erase();
+
+    for (int i = 0; i < init; i++)
+    {
+        unsigned int t = seed[i % seed_len];
+        unsigned int x = i % depth;
+
+        ring[x] += t;
+        spin();
+    }
 }
 
 // Time to pack up and go home!
@@ -95,23 +119,6 @@ double FibRng::real(void)
 {
     spin();
     return ring[0] / BASE;
-}
-
-// Reseed the generator with a new value.
-void FibRng::reseed(char *seed)
-{
-    int seed_len = strlen(seed);
-
-    erase();
-
-    for (int i = 0; i < init; i++)
-    {
-        unsigned int t = seed[i % seed_len];
-        unsigned int x = i % depth;
-
-        ring[x] += t;
-        spin();
-    }
 }
 
 // Scramble the eggs some more.

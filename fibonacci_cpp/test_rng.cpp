@@ -65,23 +65,21 @@ void main(int argc, char * argv[])
     }
 
     if (errors == 0)
-        printf("Equal, no errors detected.\n");
+        printf("Equal, no errors detected.\n\n");
     else
-    {
         printf("Different %d times\n\n", errors);
 
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 10; j++)
-                printf("%4d", expected[10 * i + j]);
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 10; j++)
+            printf("%4d", expected[10 * i + j]);
 
-            printf("\n");
+        printf("\n");
 
-            for (int j = 0; j < 10; j++)
-                printf("%4d", result[10 * i + j]);
+        for (int j = 0; j < 10; j++)
+            printf("%4d", result[10 * i + j]);
 
-            printf("\n\n");
-        }
+        printf("\n\n");
     }
 
     printf("Done Value Test.\n");

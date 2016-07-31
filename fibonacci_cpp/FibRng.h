@@ -5,10 +5,12 @@
 class FibRng
 {
 public:
-    FibRng(char *seed, int _depth = 8);
-    FibRng(int _depth = 8);
-    FibRng(int _init, char *seed, int _depth = 8);
-    FibRng(int _init, int _depth = 8);
+    static const int DEPTH = 8;
+
+    FibRng(char *seed, int _depth = DEPTH);
+    FibRng(int depth = DEPTH);
+    FibRng(int init, char *seed, int depth = DEPTH);
+    FibRng(int init, int depth = DEPTH);
 
     ~FibRng();
 
@@ -27,7 +29,12 @@ protected:
     static const int CHOP = 0x1FFFFFFF;
     static const int TOP  = 0x10000000;
     static const double BASE;
+    const char *FibRng::spice = "StringLeonardo Pisano";
     static uint32_t tickle;
+
+    void default_init(void);
+    void default_seed(void);
+    void do_seed(char *seed);
 
     int depth;
     int init;
