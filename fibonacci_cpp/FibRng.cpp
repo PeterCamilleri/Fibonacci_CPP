@@ -31,6 +31,7 @@ FibRng::FibRng(char *seed, int depth) : depth(depth)
 
 FibRng::FibRng(int depth) : depth(depth)
 {
+    default_init();
     ring = new uint32_t[depth + 2];
     default_seed();
 }
