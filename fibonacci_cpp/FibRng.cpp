@@ -7,7 +7,9 @@
 // generators with the default seed.
 uint32_t FibRng::tickle = 0;
 
+// Set up some operational constants.
 const double FibRng::BASE = FibRng::CHOP + 1.0;
+const char  *FibRng::spice = "StringLeonardo Pisano";
 
 // A constructor for Fibonacci Psuedo Random Number Generator.
 // This takes up to three parms. Versions with fewer parms follow
@@ -50,9 +52,9 @@ void FibRng::default_init(void)
 void FibRng::default_seed(void)
 {
     char seed_buffer[80];
-    sprintf_s(seed_buffer, 80, "%d", time(NULL) + tickle);
+    sprintf_s(seed_buffer, 80, "%lld", time(NULL) + tickle);
     tickle++;
-    do_seed(seed_buffer);
+    do_seed(seed_buffer, strlen(seed_buffer));
 }
 
 void FibRng::reseed(char *seed)
@@ -63,16 +65,14 @@ void FibRng::reseed(char *seed)
     strcpy_s(buffer, len, seed);
     strcat_s(buffer, len, spice);
 
-    do_seed(buffer);
+    do_seed(buffer, len-1);
 
-    delete[] buffer;
+    delete [] buffer;
 }
 
 // Reseed the generator with a new value.
-void FibRng::do_seed(char *seed)
+void FibRng::do_seed(char *seed, int seed_len)
 {
-    int seed_len = strlen(seed);
-
     erase();
 
     for (int i = 0; i < init; i++)
@@ -126,14 +126,14 @@ double FibRng::real(void)
 void FibRng::spin(void)
 {
     // Copy over the 'end' values.
-    ring[depth]     = ring[0];
-    ring[depth + 1] = ring[1];
+    ring[depth]   = ring[0];
+    ring[depth+1] = ring[1];
 
     // Spin the wheel!
     for (int i = 0; i < depth; i++)
     {
-        uint32_t ring_i_2 = ring[i + 2];
-        ring[i] = (ring[i + 1] + ((ring_i_2 >> 1) | ((ring_i_2 & 1) ? TOP : 0))) & CHOP;
+        uint32_t ri2 = ring[i+2];
+        ring[i] = (ring[i+1] + ((ri2 >> 1) | ((ri2 & 1) ? TOP : 0))) & CHOP;
     }
 }
 

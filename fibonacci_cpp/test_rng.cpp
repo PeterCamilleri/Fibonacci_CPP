@@ -2,10 +2,14 @@
 
 #include "FibRng.h"
 #include <stdio.h>
+#include <time.h>
 
 void main(int argc, char * argv[])
 {
+    clock_t t1, t2;
+
     printf("Starting Bin Test.\n");
+    t1 = clock();
 
     FibRng gen;
     uint32_t bins[6] = { 0, 0, 0, 0, 0, 0 };
@@ -15,13 +19,15 @@ void main(int argc, char * argv[])
         bins[gen.dice(6)]++;
     }
 
+    t2 = clock();
+
     for (int i = 0; i < 6; i++)
     {
         printf("Bin %d = %u \n", i+1, bins[i]);
     }
 
     //gen.dump();
-    printf("Done Bin Test.\n");
+    printf("Done Bin Test. Ellapsed = %dms\n", t2-t1);
 
     // Test from Ruby used to make sure incompatibilities do not creep in.
     // expected = [184, 93,   0, 240,  34, 184,   4, 220, 126, 132,
