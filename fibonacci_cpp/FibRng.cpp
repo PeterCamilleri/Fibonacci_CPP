@@ -7,8 +7,11 @@
 // generators with the default seed.
 uint32_t FibRng::tickle = 0;
 
+const char  *FibRng::VERSION = "1.0.0";
+
 // Set up some operational constants.
-const double FibRng::BASE = FibRng::CHOP + 1.0;
+const double FibRng::BASE = CHOP + 1.0;
+const double FibRng::DBL  = BASE * BASE;
 const char  *FibRng::spice = "StringLeonardo Pisano";
 
 // A constructor for Fibonacci Psuedo Random Number Generator.
@@ -120,6 +123,14 @@ double FibRng::real(void)
 {
     spin();
     return ring[0] / BASE;
+}
+
+double FibRng::dbl(void)
+{
+    spin();
+    double part_one = ring[0] * BASE;
+    spin();
+    return (part_one + ring[0]) / DBL;
 }
 
 // Scramble the eggs some more.
