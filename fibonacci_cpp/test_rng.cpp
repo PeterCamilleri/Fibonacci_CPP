@@ -28,8 +28,9 @@ void main(int argc, char * argv[])
         printf("Bin %d = %u \n", i+1, bins[i]);
     }
 
-    //gen.dump();
-    printf("Done Bin Test. Ellapsed = %dms\n", t2-t1);
+    printf("\nRegister Dump\n");
+    gen.dump();
+    printf("Done Bin Test. Ellapsed = %dms\n", t2 - t1);
 
     // Tests ported from Ruby to make sure incompatibilities do not creep in.
 
@@ -80,6 +81,8 @@ void main(int argc, char * argv[])
         printf("\n\n");
     }
 
+    printf("\nRegister Dump\n");
+    test.dump();
     printf("Done Value Test 1.\n");
 
     // ----------------------------------------------------------------------
@@ -102,6 +105,8 @@ void main(int argc, char * argv[])
     else
         printf("Different %d times\n", errors);
 
+    printf("\nRegister Dump\n");
+    test.dump();
     printf("Done Value Test 2.\n");
 
     // ----------------------------------------------------------------------
@@ -147,6 +152,8 @@ void main(int argc, char * argv[])
     else
         printf("Different %d times\n", errors);
 
+    printf("\nRegister Dump\n");
+    test.dump();
     printf("Done Value Test 3.\n");
 
     // ----------------------------------------------------------------------
@@ -190,10 +197,9 @@ void main(int argc, char * argv[])
     else
         printf("Different %d times\n", errors);
 
-    printf("Done Value Test 4.\n");
-
     printf("\nRegister Dump\n");
     test.dump();
+    printf("Done Value Test 4.\n");
 
     printf("\n");
 
