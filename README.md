@@ -55,10 +55,10 @@ applications. Valid depth values are 2..256.
 The following four constructors are available:
 
 ```cpp
-FibRng(int init, char *seed, int depth = DEPTH);
-FibRng(          char *seed, int depth = DEPTH);
-FibRng(int init,             int depth);
-FibRng(                      int depth = DEPTH);
+FibRng(int init, const char *seed, int depth = DEPTH);
+FibRng(          const char *seed, int depth = DEPTH);
+FibRng(int init,                   int depth);
+FibRng(                            int depth = DEPTH);
 ```
 Note that three of these functions have an optional parameter while one does
 not. This yields a total of seven ways to create a FibRng generator.
