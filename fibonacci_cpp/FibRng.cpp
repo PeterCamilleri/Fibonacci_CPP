@@ -18,22 +18,27 @@ const char  *FibRng::spice = "StringLeonardo Pisano";
 // This takes up to three parms. Versions with fewer parms follow
 // that use sensible default values where needed.
 // Parms:
-// init - The amount of initial churning to be done.
+// init - The amount of initial churning done. Valid values are 1..1000000
 // seed - A seed string.
-// depth - The number of cells to use. Valid values are 2...Are_you_crazy?
-FibRng::FibRng(int init, char *seed, int depth) : init(init), depth(depth)
+// depth - The number of cells to use. Valid values are 2..256. Default = 8
+FibRng::FibRng(int init, const char *seed, int depth) : init(init), depth(depth)
 {
     ring = new uint32_t[depth + 2];
     reseed(seed);
 }
 
-FibRng::FibRng(char *seed, int depth) : depth(depth)
+// Build with the default init value of 32 * depth + 768.
+// seed - A seed string.
+// depth - The number of cells to use. Valid values are 2..256. Default = 8
+FibRng::FibRng(const char *seed, int depth) : depth(depth)
 {
     default_init();
     ring = new uint32_t[depth + 2];
     reseed(seed);
 }
 
+// Build with a random seed and a default init value of 32 * depth + 768.
+// depth - The number of cells to use. Valid values are 2..256. Default = 8
 FibRng::FibRng(int depth) : depth(depth)
 {
     default_init();
@@ -41,6 +46,9 @@ FibRng::FibRng(int depth) : depth(depth)
     default_seed();
 }
 
+// Build with a random seed.
+// init - The amount of initial churning done. Valid values are 1..1000000
+// depth - The number of cells to use. Valid values are 2..256. Default = 8
 FibRng::FibRng(int init, int depth) : init(init), depth(depth)
 {
     ring = new uint32_t[depth + 2];
@@ -60,7 +68,8 @@ void FibRng::default_seed(void)
     do_seed(seed_buffer, strlen(seed_buffer));
 }
 
-void FibRng::reseed(char *seed)
+// Restart the generator with a new seed.
+void FibRng::reseed(const char *seed)
 {
     int len = strlen(seed) + strlen(spice) + 1;
     char *buffer = new char[len];
@@ -107,24 +116,28 @@ uint32_t FibRng::dice(uint32_t sides)
     return ring[0] % sides;
 }
 
+// Generate a random byte value.
 uint8_t FibRng::byte(void)
 {
     spin();
     return ring[0] & 0xFF;
 }
 
+// Generate a random 16 bit value.
 uint16_t FibRng::word(void)
 {
     spin();
     return ring[0] & 0xFFFF;
 }
 
+// Generate a quick floating point value in 0.0 <= x < 1.0
 double FibRng::real(void)
 {
     spin();
     return ring[0] / BASE;
 }
 
+// Generate a better floating point value in 0.0 <= x < 1.0
 double FibRng::dbl(void)
 {
     spin();
@@ -152,9 +165,7 @@ void FibRng::spin(void)
 void FibRng::dump(void)
 {
     for (int i = 0; i < depth; i++)
-    {
         printf("%u ", ring[i]);
-    }
 
     printf("\n");
 }
@@ -163,7 +174,5 @@ void FibRng::dump(void)
 void FibRng::erase(void)
 {
     for (int i = 0; i < depth; i++)
-    {
         ring[i] = 0;
-    }
 }

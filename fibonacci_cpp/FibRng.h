@@ -9,8 +9,8 @@ public:
 
     static const int DEPTH = 8;
 
-    FibRng(int init, char *seed, int depth = DEPTH);
-    FibRng(          char *seed, int depth = DEPTH);
+    FibRng(int init, const char *seed, int depth = DEPTH);
+    FibRng(          const char *seed, int depth = DEPTH);
     FibRng(int init,             int depth);
     FibRng(                      int depth = DEPTH);
 
@@ -22,11 +22,11 @@ public:
     double   real(void);
     double   dbl(void);
 
-    void reseed(char *seed);
+    void reseed(const char *seed);
     void spin(void);
     void dump(void);
 
-protected:
+private:
     static const int CHOP = 0x1FFFFFFF;
     static const int TOP  = 0x10000000;
     static const double BASE;

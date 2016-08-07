@@ -82,6 +82,7 @@ gen.dice(100)   // A "random" integer between 0 and 99
 gen.byte()      // A "random" integer between 0 and 255
 gen.word()      // A "random" integer between 0 and 65535
 gen.real()      // A quick "random" float between 0 and 1.
+gen.dbl()       // A better "random" float between 0 and 1.
 ```
 
 and also available
