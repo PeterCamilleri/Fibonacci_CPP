@@ -78,17 +78,33 @@ Once the generator is created, it must be put to work cranking out data. There
 are a number of options for doing this:
 
 ```cpp
-gen.dice(100)   // A "random" integer between 0 and 99
-gen.byte()      // A "random" integer between 0 and 255
-gen.word()      // A "random" integer between 0 and 65535
-gen.real()      // A quick "random" float between 0 and 1.
-gen.dbl()       // A better "random" float between 0 and 1.
+// A "random" integer between 0 and sides-1.
+uint32_t dice(uint32_t sides);
+
+// A "random" integer between 0 and 255.
+uint8_t byte(void);
+
+// A "random" integer between 0 and 65535.
+uint16_t word(void);
+
+// A quick "random" float between 0 and 1.
+double real(void);
+
+// A better "random" float between 0 and 1.
+double dbl(void);
+
+// gen.ascii(b,l)   -- Fill buffer b with l random printable ASCII characters.
+// gen.ascii(b,l,s) -- Fill buffer b with l random characters from string s.
+void ascii(char *buffer, uint32_t len, const char *set = ASCII_7);
 ```
 
 and also available
 
-    gen.reseed("string")  # Reseed the sequence with the new value.
-    gen.spin()            # Spin the generator once.
+```cpp
+void reseed(const char *seed); // Reseed the sequence with the new value.
+void spin(void);               // Spin the generator once.
+void dump(void);               // A debug register dump.
+```
 
 If more than one stream of numbers is required, it is best to use multiple
 instances of FibRng objects rather than rely on one.
