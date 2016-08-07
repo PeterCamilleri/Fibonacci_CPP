@@ -7,7 +7,7 @@
 // generators with the default seed.
 uint32_t FibRng::tickle = 0;
 
-const char  *FibRng::VERSION = "1.0.0";
+const char  *FibRng::VERSION = "1.0.1";
 
 // Set up some operational constants.
 const double FibRng::BASE = CHOP + 1.0;
