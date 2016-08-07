@@ -3,6 +3,7 @@
 #include "FibRng.h"
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 void main(int argc, char * argv[])
 {
@@ -200,6 +201,38 @@ void main(int argc, char * argv[])
     printf("\nRegister Dump\n");
     test.dump();
     printf("Done Value Test 4.\n");
+
+    // ----------------------------------------------------------------------
+    // 5 - Test for some random strings.
+    // ----------------------------------------------------------------------
+    printf("\n\nStarting String Test 5.\n");
+
+    test.reseed("%s*08^_Tg{NnirtZ-94)q9z2l+~bB5");
+    errors = 0;
+
+    char buffer[11];
+    char *str_result_1 = ",-+Idi6~ ~";
+
+    test.ascii(buffer, 10);
+
+    if (strcmp(buffer, str_result_1))
+        errors++;
+
+    char *str_result_2 = "5901964804";
+
+    test.ascii(buffer, 10, "0123456789");
+
+    if (strcmp(buffer, str_result_2))
+        errors++;
+
+    if (errors == 0)
+        printf("Equal, no errors detected.\n");
+    else
+        printf("Different %d times\n", errors);
+
+    printf("\nRegister Dump\n");
+    test.dump();
+    printf("Done String Test 5.\n");
 
     printf("\n");
 

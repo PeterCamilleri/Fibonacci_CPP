@@ -6,6 +6,7 @@ class FibRng
 {
 public:
     static const char *VERSION;
+    static const char *ASCII_7;
 
     static const int DEPTH = 8;
 
@@ -21,6 +22,7 @@ public:
     uint16_t word(void);
     double   real(void);
     double   dbl(void);
+    void     ascii(char *buffer, uint32_t len, const char *set = ASCII_7);
 
     void reseed(const char *seed);
     void spin(void);
