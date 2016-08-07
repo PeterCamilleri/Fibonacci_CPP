@@ -165,7 +165,7 @@ void FibRng::spin(void)
 void FibRng::dump(void)
 {
     for (int i = 0; i < depth; i++)
-        printf("%u ", ring[i]);
+        printf("%8X  ", ring[i]);
 
     printf("\n");
 }

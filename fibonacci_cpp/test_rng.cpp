@@ -192,6 +192,9 @@ void main(int argc, char * argv[])
 
     printf("Done Value Test 4.\n");
 
+    printf("\nRegister Dump\n");
+    test.dump();
+
     printf("\n");
 
 }
