@@ -32,7 +32,7 @@ private:
     static const double BASE;
     static const double DBL;
     static const char *spice;
-    static uint32_t tickle;
+    static uint64_t tickle;
 
     void erase(void);
     void default_init(void);
