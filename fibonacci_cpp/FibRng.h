@@ -11,8 +11,8 @@ public:
 
     FibRng(int init, const char *seed, int depth = DEPTH);
     FibRng(          const char *seed, int depth = DEPTH);
-    FibRng(int init,             int depth);
-    FibRng(                      int depth = DEPTH);
+    FibRng(int init,                   int depth);
+    FibRng(                            int depth = DEPTH);
 
     ~FibRng();
 
