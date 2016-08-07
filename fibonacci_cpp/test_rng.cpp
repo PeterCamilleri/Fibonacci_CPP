@@ -10,7 +10,9 @@ void main(int argc, char * argv[])
     printf("Test Fibonacci Pseudo RNG, Version = %s\n\n", FibRng::VERSION);
     clock_t t1, t2;
 
+    // ----------------------------------------------------------------------
     // 0 - A simple bin test.
+    // ----------------------------------------------------------------------
     printf("Starting Bin Test.\n");
     t1 = clock();
 
