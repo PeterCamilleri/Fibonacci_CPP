@@ -10,10 +10,10 @@ public:
 
     static const int DEPTH = 8;
 
-    FibRng(int init, const char *seed, int depth = DEPTH);
-    FibRng(          const char *seed, int depth = DEPTH);
-    FibRng(int init,                   int depth);
-    FibRng(                            int depth = DEPTH);
+    explicit FibRng(int init, const char *seed, int depth = DEPTH);
+    explicit FibRng(          const char *seed, int depth = DEPTH);
+    explicit FibRng(int init,                   int depth);
+    explicit FibRng(                            int depth = DEPTH);
 
     ~FibRng();
 

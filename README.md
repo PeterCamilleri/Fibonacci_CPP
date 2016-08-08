@@ -54,11 +54,11 @@ applications. Valid depth values are 2..256.
 
 The following four constructors are available:
 
-```cpp
-FibRng(int init, const char *seed, int depth = DEPTH);
-FibRng(          const char *seed, int depth = DEPTH);
-FibRng(int init,                   int depth);
-FibRng(                            int depth = DEPTH);
+```c++
+explicit FibRng(int init, const char *seed, int depth = DEPTH);
+explicit FibRng(          const char *seed, int depth = DEPTH);
+explicit FibRng(int init,                   int depth);
+explicit FibRng(                            int depth = DEPTH);
 ```
 Note that three of these functions have an optional parameter while one does
 not. This yields a total of seven ways to create a FibRng generator.
@@ -68,7 +68,7 @@ useful option of specifying a depth value with default init and seed values.
 
 However, all is not lost. To emulate the missing option, simply use:
 
-```cpp
+```c++
 FibRng(init_value, FibRng::DEPTH);
 ```
 
@@ -77,7 +77,7 @@ FibRng(init_value, FibRng::DEPTH);
 Once the generator is created, it must be put to work cranking out data. There
 are a number of options for doing this:
 
-```cpp
+```c++
 // A "random" integer between 0 and sides-1.
 uint32_t dice(uint32_t sides);
 
@@ -100,7 +100,7 @@ void ascii(char *buffer, uint32_t len, const char *set = ASCII_7);
 
 and also available
 
-```cpp
+```c++
 void reseed(const char *seed); // Reseed the sequence with the new value.
 void spin(void);               // Spin the generator once.
 void dump(void);               // A debug register dump.
